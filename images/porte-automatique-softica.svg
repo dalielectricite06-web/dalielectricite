@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="doorBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="glassLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#0284C7" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0.25"/>
+    </linearGradient>
+    <linearGradient id="aluBlack" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#doorBg)"/>
+
+  <!-- Shop Façade / Architecture -->
+  <rect x="60" y="40" width="680" height="520" rx="12" fill="#1E293B" stroke="#334155" stroke-width="3"/>
+
+  <!-- Warm Store Interior Lighting glow -->
+  <rect x="120" y="120" width="560" height="420" fill="#FBBF24" opacity="0.12"/>
+
+  <!-- Top Header / Rail Housing Softica Operator -->
+  <rect x="100" y="80" width="600" height="50" rx="8" fill="url(#aluBlack)" stroke="#475569" stroke-width="2"/>
+  <rect x="120" y="96" width="14" height="18" rx="2" fill="#38BDF8"/>
+  <text x="145" y="110" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="13" font-weight="900" letter-spacing="1">OPÉRATEUR SOFTICA AUTOMATISME</text>
+
+  <!-- Motion Radar Sensor in Center -->
+  <rect x="375" y="120" width="50" height="16" rx="4" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+  <circle cx="400" cy="128" r="4" fill="#10B981"/>
+
+  <!-- Left Sliding Glass Panel -->
+  <rect x="160" y="140" width="230" height="400" rx="6" fill="url(#glassLight)" stroke="#0F172A" stroke-width="8"/>
+  <!-- Aluminum Frame and Handle -->
+  <rect x="164" y="144" width="222" height="392" fill="none" stroke="#64748B" stroke-width="2"/>
+  <line x1="380" y1="280" x2="380" y2="400" stroke="#F1F5F9" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Right Sliding Glass Panel -->
+  <rect x="410" y="140" width="230" height="400" rx="6" fill="url(#glassLight)" stroke="#0F172A" stroke-width="8"/>
+  <rect x="414" y="144" width="222" height="392" fill="none" stroke="#64748B" stroke-width="2"/>
+  <line x1="420" y1="280" x2="420" y2="400" stroke="#F1F5F9" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Floor Stainless Guide Rail -->
+  <rect x="100" y="540" width="600" height="12" fill="#94A3B8"/>
+  <rect x="100" y="542" width="600" height="2" fill="#E2E8F0"/>
+
+  <!-- Prestige Badge -->
+  <g transform="translate(80, 60)">
+    <rect x="0" y="0" width="180" height="28" rx="14" fill="#0F172A" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="90" y="18" fill="#FBBF24" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle" letter-spacing="1">PORTE VITRÉE MAGASIN</text>
+  </g>
+</svg>
