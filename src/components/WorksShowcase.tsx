@@ -19,6 +19,7 @@ import {
   Star,
   Check,
   Trash2,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { PROJECTS_DATA, WorkProject, COMPANY_INFO } from '../data/companyData';
 import {
@@ -26,6 +27,7 @@ import {
   saveCustomPhoto,
   setHeroBanner,
   deleteCustomPhoto,
+  compressImageFile,
   CustomWorkPhoto,
   DEFAULT_BANNER_URL,
 } from '../utils/photosStorage';
@@ -39,6 +41,8 @@ export const WorksShowcase: React.FC<WorksShowcaseProps> = ({ onOpenQuoteModal }
   const [activeModalProject, setActiveModalProject] = useState<WorkProject | null>(null);
   const [customPhotos, setCustomPhotos] = useState<CustomWorkPhoto[]>([]);
   const [bannerSuccess, setBannerSuccess] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const sliderRef = useRef<HTMLDivElement>(null);
 
@@ -47,25 +51,44 @@ export const WorksShowcase: React.FC<WorksShowcaseProps> = ({ onOpenQuoteModal }
     setCustomPhotos(getSavedPhotos());
   }, []);
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
+  const processFiles = async (fileList: FileList | File[]) => {
+    const files = Array.from(fileList);
     if (!files || files.length === 0) return;
 
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          const saved = saveCustomPhoto(file, event.target.result as string);
+    setIsProcessing(true);
+    try {
+      for (const file of files) {
+        if (!file.type.startsWith('image/')) continue;
+        const compressedDataUrl = await compressImageFile(file);
+        if (compressedDataUrl) {
+          const saved = saveCustomPhoto(file, compressedDataUrl);
           setCustomPhotos(getSavedPhotos());
           if (file.name.includes('6336') || saved.isBanner) {
-            setBannerSuccess('Chantier configuré comme bannière principale du site !');
+            setBannerSuccess('Photo de chantier ajoutée et définie comme bannière principale !');
             setTimeout(() => setBannerSuccess(null), 4000);
             window.dispatchEvent(new Event('dali_banner_updated'));
+          } else {
+            setBannerSuccess('Photo ajoutée avec succès au carrousel des chantiers !');
+            setTimeout(() => setBannerSuccess(null), 4000);
           }
         }
-      };
-      reader.readAsDataURL(file);
+      }
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      processFiles(e.target.files);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    if (e.dataTransfer.files) {
+      processFiles(e.dataTransfer.files);
     }
   };
 
@@ -114,7 +137,7 @@ export const WorksShowcase: React.FC<WorksShowcaseProps> = ({ onOpenQuoteModal }
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       {/* Banner Success Notification */}
       {bannerSuccess && (
         <div className="p-4 rounded-2xl bg-amber-400 text-slate-950 font-black text-sm flex items-center justify-between shadow-xl animate-in fade-in duration-300">
@@ -125,6 +148,59 @@ export const WorksShowcase: React.FC<WorksShowcaseProps> = ({ onOpenQuoteModal }
           <Check className="w-5 h-5 text-slate-950" />
         </div>
       )}
+
+      {/* Prominent Direct Drag-and-Drop Area for User's Photos */}
+      <div
+        onDragOver={(e) => {
+          e.preventDefault();
+          setIsDragging(true);
+        }}
+        onDragLeave={() => setIsDragging(false)}
+        onDrop={handleDrop}
+        className={`p-6 sm:p-7 rounded-3xl border-2 transition-all ${
+          isDragging
+            ? 'border-amber-400 bg-amber-400/15 shadow-xl scale-[1.01]'
+            : 'border-dashed border-amber-400/70 bg-gradient-to-r from-amber-400/10 via-amber-300/5 to-slate-900/5 hover:border-amber-400'
+        } flex flex-col md:flex-row items-center justify-between gap-5`}
+      >
+        <div className="flex items-center gap-4 text-center md:text-left">
+          <div className="w-14 h-14 rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center flex-shrink-0 shadow-md">
+            {isProcessing ? (
+              <div className="w-6 h-6 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <Upload className="w-7 h-7" />
+            )}
+          </div>
+          <div>
+            <div className="flex items-center justify-center md:justify-start gap-2">
+              <span className="text-[10px] font-black uppercase tracking-widest text-amber-600 bg-amber-100 px-2 py-0.5 rounded-md">
+                Transfert Immédiat
+              </span>
+              <span className="text-xs font-semibold text-slate-500">
+                {customPhotos.length} photo{customPhotos.length > 1 ? 's' : ''} active{customPhotos.length > 1 ? 's' : ''}
+              </span>
+            </div>
+            <h4 className="text-base font-black text-slate-900 tracking-tight mt-0.5">
+              Glissez vos photos ici pour les afficher instantanément sur votre site
+            </h4>
+            <p className="text-xs text-slate-600 mt-0.5">
+              Vos photos de chantiers s'ajoutent directement en tête du défilement ci-dessous sans aucun numéro brut.
+            </p>
+          </div>
+        </div>
+
+        <label className="px-6 py-3 rounded-xl bg-slate-950 hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg transition-all whitespace-nowrap active:scale-95 flex items-center gap-2">
+          <Plus className="w-4 h-4 text-amber-400" />
+          <span>Sélectionner vos photos</span>
+          <input
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+        </label>
+      </div>
 
       {/* Category selector & Slider Navigation Controls */}
       <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-200 pb-4">
@@ -182,11 +258,11 @@ export const WorksShowcase: React.FC<WorksShowcaseProps> = ({ onOpenQuoteModal }
           className="flex gap-6 overflow-x-auto scroll-smooth pb-4 no-scrollbar snap-x snap-mandatory"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {/* 1. Custom Photos uploaded by user (e.g. 6336) shown first */}
+          {/* 1. Custom Photos uploaded by user shown FIRST */}
           {customPhotos.map((photo) => (
             <div
               key={photo.id}
-              className="flex-shrink-0 w-[300px] sm:w-[360px] snap-start bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:border-amber-400"
+              className="flex-shrink-0 w-[300px] sm:w-[360px] snap-start bg-white rounded-3xl border-2 border-amber-400 overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 {/* Photo Media Container */}
@@ -198,7 +274,7 @@ export const WorksShowcase: React.FC<WorksShowcaseProps> = ({ onOpenQuoteModal }
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
 
-                  {/* Clean Badge: ONLY "Chantier Terminé" - NO numbers */}
+                  {/* Clean Badge: ONLY "Chantier Terminé" */}
                   <div className="absolute top-3 left-3 bg-slate-950/90 backdrop-blur-xs text-amber-400 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full border border-amber-400/30 flex items-center gap-1.5 shadow-md">
                     <CheckCircle2 className="w-3 h-3 text-amber-400" />
                     <span>Chantier Terminé</span>
@@ -366,31 +442,6 @@ export const WorksShowcase: React.FC<WorksShowcaseProps> = ({ onOpenQuoteModal }
             );
           })}
         </div>
-      </div>
-
-      {/* Upload Box for user's chantiers */}
-      <div className="rounded-3xl border-2 border-dashed border-slate-300 p-7 sm:p-9 text-center bg-white hover:border-amber-400 transition-all shadow-sm">
-        <div className="w-12 h-12 mx-auto rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mb-3">
-          <Upload className="w-6 h-6" />
-        </div>
-        <h4 className="text-base sm:text-lg font-black text-slate-900 uppercase">
-          Ajouter vos photos de chantiers terminés
-        </h4>
-        <p className="text-xs text-slate-600 max-w-lg mx-auto mt-1 leading-relaxed">
-          Sélectionnez vos photos (tableaux électriques, portails, portes automatiques). Elles s’ajoutent directement au défilement fluide et vous pouvez les définir comme bannière principale en 1 clic.
-        </p>
-
-        <label className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-md transition-all active:scale-95">
-          <Plus className="w-4 h-4 text-amber-400" />
-          <span>Transférer une photo de chantier</span>
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={handleFileUpload}
-            className="hidden"
-          />
-        </label>
       </div>
 
       {/* Modal Detail View for Official Projects */}
