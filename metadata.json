@@ -1,0 +1,8 @@
+{
+  "name": "Dali Électricité - Électricien & Automatismes Cagnes-sur-Mer",
+  "description": "Site officiel de Dali Électricité à Cagnes-sur-Mer. Électricité générale, portes automatiques, portails motorisés, rideaux métalliques et dépannage 7j/7.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
