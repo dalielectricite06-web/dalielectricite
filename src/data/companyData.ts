@@ -291,6 +291,25 @@ export interface WorkProject {
 
 export const PROJECTS_DATA: WorkProject[] = [
   {
+    id: 'chantier-6336-tableau-electrique',
+    title: 'Rénovation & Tableau Électrique NF C 15-100',
+    category: 'electricite',
+    categoryLabel: 'Électricité Générale',
+    location: 'Cagnes-sur-Mer (06800)',
+    clientType: 'Rénovation Résidentielle & Copropriété',
+    description: 'Remplacement complet et remise aux normes NF C 15-100 d’un tableau électrique : pose d’un coffret modulaire Hager 3 rangées, disjoncteurs différentiels 30mA Type A & AC, parafoudre et repérage au millimètre.',
+    specs: [
+      'Coffret modulaire Hager 3 rangées avec porte de protection',
+      'Protection différentielle haute sensibilité 30mA (Type A et AC)',
+      'Parafoudre autoprotégé contre les surtensions réseau',
+      'Équilibrage des phases et repérage clair de chaque circuit',
+    ],
+    equipment: 'Appareillage Hager / Schneider Electric & Câblage certifié',
+    instagramRef: '@dali_electricite06',
+    aspectRatio: '16:9',
+    iconType: 'zap',
+  },
+  {
     id: 'hotel-west-end',
     title: 'Hôtel West-End 4★ — Entrée de Prestige',
     category: 'portes',

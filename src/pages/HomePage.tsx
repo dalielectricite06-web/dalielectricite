@@ -129,7 +129,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenQuoteModal
 
                 <label className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/90 hover:bg-slate-800 text-amber-300 text-[11px] font-black border border-amber-400/40 cursor-pointer transition-all shadow-md active:scale-95">
                   <Camera className="w-3.5 h-3.5 text-amber-400" />
-                  <span>{heroBanner ? 'Changer la bannière (image 6336)' : 'Mettre l’image 6336 en bannière'}</span>
+                  <span>Personnaliser la photo de bannière</span>
                   <input
                     type="file"
                     accept="image/*"

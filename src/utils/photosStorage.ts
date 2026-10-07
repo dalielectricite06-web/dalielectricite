@@ -12,13 +12,15 @@ export interface CustomWorkPhoto {
 const STORAGE_KEY = 'dali_custom_photos_v1';
 const BANNER_KEY = 'dali_hero_banner_v1';
 
-// Professional fallback titles when an image filename has numbers like IMG_6336
+export const DEFAULT_BANNER_URL = '/images/banniere-chantier-6336.svg';
+
+// Professional prestige titles for uploaded chantier photos (NO numbers, NO raw filenames)
 const PRESET_TITLES = [
-  'Rénovation & Mise en Conformité Tableau Électrique',
+  'Rénovation & Tableau Électrique NF C 15-100',
   'Installation Porte Automatique Coulissante Vitrée',
   'Motorisation de Portail Coulissant Aluminium',
   'Rideau Métallique Motorisé de Sécurité & Vitrine',
-  'Éclairage LED Architectural & Rénovation Complète',
+  'Éclairage LED Architectural & Rénovation',
   'Contrôle d’Accès & Interphonie Résidentielle',
   'Maintenance Préventive & Réglage d’Automatismes',
 ];
@@ -27,7 +29,13 @@ export const getSavedPhotos = (): CustomWorkPhoto[] => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
-    return JSON.parse(raw);
+    const parsed: CustomWorkPhoto[] = JSON.parse(raw);
+    // Sanitize any existing photos to ensure clean titles and badges
+    return parsed.map((p) => ({
+      ...p,
+      title: p.title.replace(/IMG[_\s-]?\d+/gi, 'Chantier Réalisé').replace(/\d{4,}/g, '').trim() || 'Rénovation Électrique & Automatismes',
+      dateBadge: 'Chantier Terminé',
+    }));
   } catch {
     return [];
   }
@@ -39,31 +47,39 @@ export const saveCustomPhoto = (
   preferredTitle?: string
 ): CustomWorkPhoto => {
   const existing = getSavedPhotos();
-  const is6336 = file.name.includes('6336') || file.name.toLowerCase().includes('6336');
+  const lowerName = file.name.toLowerCase();
+  const is6336 = lowerName.includes('6336');
 
-  // Generate a clean, prestigious title with NO image numbers
+  // Clean title without any raw file numbers
   let cleanTitle = preferredTitle;
   if (!cleanTitle) {
     if (is6336) {
-      cleanTitle = 'Rénovation & Tableau Électrique de Précision';
+      cleanTitle = 'Rénovation & Tableau Électrique NF C 15-100';
     } else {
       const idx = existing.length % PRESET_TITLES.length;
       cleanTitle = PRESET_TITLES[idx];
     }
   }
 
+  // Remove any remaining raw number patterns like IMG_6336 or 6336
+  cleanTitle = cleanTitle.replace(/IMG[_\s-]?\d+/gi, '').replace(/\d{4,}/g, '').trim();
+  if (!cleanTitle || cleanTitle.length < 5) {
+    cleanTitle = 'Rénovation Électrique & Automatismes';
+  }
+
   const newPhoto: CustomWorkPhoto = {
-    id: `photo_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+    id: `photo_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
     url: dataUrl,
     title: cleanTitle,
     category: is6336 ? 'electricite' : 'portes',
-    categoryLabel: is6336 ? 'Électricité Générale' : 'Chantier Réalisé',
+    categoryLabel: is6336 ? 'Électricité Générale' : 'Chantier Terminé',
     location: 'Cagnes-sur-Mer (06)',
     isBanner: is6336 || existing.length === 0,
     dateBadge: 'Chantier Terminé',
   };
 
-  const updated = is6336 ? [newPhoto, ...existing] : [newPhoto, ...existing];
+  // 6336 always goes at the very top of the list
+  const updated = is6336 ? [newPhoto, ...existing.filter(p => p.url !== dataUrl)] : [newPhoto, ...existing.filter(p => p.url !== dataUrl)];
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     if (is6336 || !localStorage.getItem(BANNER_KEY)) {
@@ -76,16 +92,17 @@ export const saveCustomPhoto = (
   return newPhoto;
 };
 
-export const getHeroBanner = (): string | null => {
+export const getHeroBanner = (): string => {
   try {
     const banner = localStorage.getItem(BANNER_KEY);
     if (banner) return banner;
     // Check if any photo in list is marked as banner
     const photos = getSavedPhotos();
     const bannerPhoto = photos.find((p) => p.isBanner) || photos[0];
-    return bannerPhoto ? bannerPhoto.url : null;
+    if (bannerPhoto?.url) return bannerPhoto.url;
+    return DEFAULT_BANNER_URL;
   } catch {
-    return null;
+    return DEFAULT_BANNER_URL;
   }
 };
 
@@ -94,5 +111,15 @@ export const setHeroBanner = (url: string) => {
     localStorage.setItem(BANNER_KEY, url);
   } catch (err) {
     console.warn('Unable to save banner to localStorage', err);
+  }
+};
+
+export const deleteCustomPhoto = (id: string) => {
+  try {
+    const existing = getSavedPhotos();
+    const filtered = existing.filter((p) => p.id !== id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+  } catch (err) {
+    console.warn('Unable to delete photo', err);
   }
 };

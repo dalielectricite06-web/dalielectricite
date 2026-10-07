@@ -1,0 +1,293 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050B14"/>
+      <stop offset="40%" stop-color="#0B132B"/>
+      <stop offset="80%" stop-color="#1C2541"/>
+      <stop offset="100%" stop-color="#0A1128"/>
+    </linearGradient>
+
+    <!-- Warm Golden Artisan Accent -->
+    <linearGradient id="goldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="50%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+
+    <!-- Panel Body Gradient -->
+    <linearGradient id="panelBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="10%" stop-color="#F1F5F9"/>
+      <stop offset="90%" stop-color="#E2E8F0"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+
+    <!-- Panel Rail Shadow -->
+    <linearGradient id="railGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="50%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+
+    <!-- Breaker Body -->
+    <linearGradient id="breakerBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="85%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+
+    <!-- Diff Switch Color -->
+    <linearGradient id="diffBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FEF2F2"/>
+      <stop offset="100%" stop-color="#FEE2E2"/>
+    </linearGradient>
+
+    <!-- Neon Circuit Glow -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Dark Atmospheric Background -->
+  <rect width="1600" height="900" fill="url(#bgGrad)"/>
+
+  <!-- Technical Grid Grid Overlay -->
+  <g opacity="0.08" stroke="#38BDF8" stroke-width="1">
+    <path d="M0 100 H1600 M0 200 H1600 M0 300 H1600 M0 400 H1600 M0 500 H1600 M0 600 H1600 M0 700 H1600 M0 800 H1600" />
+    <path d="M200 0 V900 M400 0 V900 M600 0 V900 M800 0 V900 M1000 0 V900 M1200 0 V900 M1400 0 V900" />
+  </g>
+
+  <!-- Ambient Light Orbs -->
+  <circle cx="1150" cy="450" r="420" fill="#F59E0B" opacity="0.12" filter="url(#glow)"/>
+  <circle cx="450" cy="300" r="300" fill="#38BDF8" opacity="0.08" filter="url(#glow)"/>
+
+  <!-- ======================================================== -->
+  <!-- CENTRAL ELECTRICAL ENCLOSURE (TABLEAU ÉLECTRIQUE NF C 15-100) -->
+  <!-- ======================================================== -->
+  <g transform="translate(680, 80)">
+    <!-- Wall Shadow -->
+    <rect x="-15" y="-15" width="830" height="750" rx="36" fill="#000000" opacity="0.6" filter="url(#glow)"/>
+
+    <!-- Outer Modular Enclosure Frame (Hager / Schneider Premium Style) -->
+    <rect x="0" y="0" width="800" height="720" rx="28" fill="url(#panelBody)" stroke="#94A3B8" stroke-width="3"/>
+    <rect x="16" y="16" width="768" height="688" rx="20" fill="#0F172A" stroke="#334155" stroke-width="2"/>
+
+    <!-- Panel Header Strip -->
+    <rect x="16" y="16" width="768" height="64" rx="18" fill="#1E293B"/>
+    <circle cx="50" cy="48" r="7" fill="#10B981" filter="url(#glow)"/>
+    <text x="70" y="53" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="16" font-weight="800" letter-spacing="1">DALI ÉLECTRICITÉ • TABLEAU PRINCIPAL NF C 15-100</text>
+    <rect x="630" y="32" width="130" height="30" rx="6" fill="#F59E0B"/>
+    <text x="695" y="52" fill="#0F172A" font-family="system-ui, sans-serif" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1">230V / 50Hz</text>
+
+    <!-- ================= ROW 1: Disjoncteur Général & Différentiels 30mA ================= -->
+    <g transform="translate(40, 100)">
+      <!-- DIN Rail -->
+      <rect x="0" y="60" width="720" height="20" rx="4" fill="url(#railGrad)"/>
+      <rect x="0" y="68" width="720" height="4" fill="#64748B"/>
+
+      <!-- Interrupteur Différentiel 30mA 63A Type A -->
+      <g transform="translate(20, 0)">
+        <rect x="0" y="0" width="90" height="140" rx="8" fill="url(#diffBody)" stroke="#CBD5E1" stroke-width="2"/>
+        <rect x="10" y="12" width="70" height="24" rx="4" fill="#DC2626"/>
+        <text x="45" y="28" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="10" font-weight="900" text-anchor="middle">30mA TYPE A</text>
+        <circle cx="25" cy="50" r="5" fill="#EF4444"/>
+        <text x="36" y="54" fill="#475569" font-family="system-ui, sans-serif" font-size="9" font-weight="bold">TEST</text>
+        <rect x="25" y="70" width="40" height="50" rx="5" fill="#1E293B"/>
+        <rect x="30" y="75" width="30" height="20" rx="3" fill="#10B981"/>
+        <text x="45" y="90" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="9" font-weight="900" text-anchor="middle">ON</text>
+      </g>
+
+      <!-- Parafoudre Autoprotégé -->
+      <g transform="translate(125, 0)">
+        <rect x="0" y="0" width="70" height="140" rx="8" fill="url(#breakerBody)" stroke="#CBD5E1" stroke-width="2"/>
+        <rect x="8" y="12" width="54" height="20" rx="3" fill="#F59E0B"/>
+        <text x="35" y="26" fill="#0F172A" font-family="system-ui, sans-serif" font-size="8" font-weight="900" text-anchor="middle">PARAFOUDRE</text>
+        <rect x="15" y="45" width="40" height="20" rx="3" fill="#10B981"/>
+        <text x="35" y="58" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">OK</text>
+      </g>
+
+      <!-- 6x Disjoncteurs Divisionnaires Row 1 (10A - 16A - 20A) -->
+      <g transform="translate(210, 0)">
+        <!-- Breaker 1: Éclairages 10A -->
+        <g transform="translate(0, 0)">
+          <rect x="0" y="0" width="46" height="140" rx="6" fill="url(#breakerBody)" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="23" y="22" fill="#0F172A" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">C10</text>
+          <rect x="8" y="55" width="30" height="42" rx="4" fill="#334155"/>
+          <rect x="12" y="58" width="22" height="18" rx="2" fill="#10B981"/>
+          <text x="23" y="125" fill="#64748B" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">Éclairage</text>
+        </g>
+        <g transform="translate(52, 0)">
+          <rect x="0" y="0" width="46" height="140" rx="6" fill="url(#breakerBody)" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="23" y="22" fill="#0F172A" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">C10</text>
+          <rect x="8" y="55" width="30" height="42" rx="4" fill="#334155"/>
+          <rect x="12" y="58" width="22" height="18" rx="2" fill="#10B981"/>
+          <text x="23" y="125" fill="#64748B" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">Spots LED</text>
+        </g>
+        <g transform="translate(104, 0)">
+          <rect x="0" y="0" width="46" height="140" rx="6" fill="url(#breakerBody)" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="23" y="22" fill="#0F172A" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">C16</text>
+          <rect x="8" y="55" width="30" height="42" rx="4" fill="#334155"/>
+          <rect x="12" y="58" width="22" height="18" rx="2" fill="#10B981"/>
+          <text x="23" y="125" fill="#64748B" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">Prises Ch.</text>
+        </g>
+        <g transform="translate(156, 0)">
+          <rect x="0" y="0" width="46" height="140" rx="6" fill="url(#breakerBody)" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="23" y="22" fill="#0F172A" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">C16</text>
+          <rect x="8" y="55" width="30" height="42" rx="4" fill="#334155"/>
+          <rect x="12" y="58" width="22" height="18" rx="2" fill="#10B981"/>
+          <text x="23" y="125" fill="#64748B" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">Prises Sél.</text>
+        </g>
+        <g transform="translate(208, 0)">
+          <rect x="0" y="0" width="46" height="140" rx="6" fill="url(#breakerBody)" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="23" y="22" fill="#0F172A" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">C20</text>
+          <rect x="8" y="55" width="30" height="42" rx="4" fill="#334155"/>
+          <rect x="12" y="58" width="22" height="18" rx="2" fill="#10B981"/>
+          <text x="23" y="125" fill="#64748B" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">Lave-linge</text>
+        </g>
+        <g transform="translate(260, 0)">
+          <rect x="0" y="0" width="46" height="140" rx="6" fill="url(#breakerBody)" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="23" y="22" fill="#0F172A" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">C20</text>
+          <rect x="8" y="55" width="30" height="42" rx="4" fill="#334155"/>
+          <rect x="12" y="58" width="22" height="18" rx="2" fill="#10B981"/>
+          <text x="23" y="125" fill="#64748B" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">Four</text>
+        </g>
+        <g transform="translate(312, 0)">
+          <rect x="0" y="0" width="60" height="140" rx="6" fill="url(#breakerBody)" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="30" y="22" fill="#0F172A" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">C32</text>
+          <rect x="12" y="55" width="36" height="42" rx="4" fill="#334155"/>
+          <rect x="18" y="58" width="24" height="18" rx="2" fill="#10B981"/>
+          <text x="30" y="125" fill="#DC2626" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">Plaques 6mm²</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- ================= ROW 2: AUTOMATISMES & MOTORISATIONS ================= -->
+    <g transform="translate(40, 290)">
+      <!-- DIN Rail -->
+      <rect x="0" y="60" width="720" height="20" rx="4" fill="url(#railGrad)"/>
+      <rect x="0" y="68" width="720" height="4" fill="#64748B"/>
+
+      <!-- Différentiel 30mA AC -->
+      <g transform="translate(20, 0)">
+        <rect x="0" y="0" width="90" height="140" rx="8" fill="url(#diffBody)" stroke="#CBD5E1" stroke-width="2"/>
+        <rect x="10" y="12" width="70" height="24" rx="4" fill="#DC2626"/>
+        <text x="45" y="28" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="10" font-weight="900" text-anchor="middle">30mA TYPE AC</text>
+        <circle cx="25" cy="50" r="5" fill="#EF4444"/>
+        <text x="36" y="54" fill="#475569" font-family="system-ui, sans-serif" font-size="9" font-weight="bold">TEST</text>
+        <rect x="25" y="70" width="40" height="50" rx="5" fill="#1E293B"/>
+        <rect x="30" y="75" width="30" height="20" rx="3" fill="#10B981"/>
+        <text x="45" y="90" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="9" font-weight="900" text-anchor="middle">ON</text>
+      </g>
+
+      <!-- Automatismes Spécialisés Dali Électricité -->
+      <g transform="translate(130, 0)">
+        <!-- Disjoncteur Portail Motorisé -->
+        <g transform="translate(0, 0)">
+          <rect x="0" y="0" width="56" height="140" rx="6" fill="url(#breakerBody)" stroke="#F59E0B" stroke-width="2"/>
+          <text x="28" y="22" fill="#0F172A" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">C16</text>
+          <rect x="10" y="55" width="36" height="42" rx="4" fill="#334155"/>
+          <rect x="15" y="58" width="26" height="18" rx="2" fill="#F59E0B"/>
+          <text x="28" y="125" fill="#D97706" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">Portail Auto</text>
+        </g>
+        <!-- Disjoncteur Porte Automatique Vitrée -->
+        <g transform="translate(64, 0)">
+          <rect x="0" y="0" width="56" height="140" rx="6" fill="url(#breakerBody)" stroke="#F59E0B" stroke-width="2"/>
+          <text x="28" y="22" fill="#0F172A" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">C16</text>
+          <rect x="10" y="55" width="36" height="42" rx="4" fill="#334155"/>
+          <rect x="15" y="58" width="26" height="18" rx="2" fill="#F59E0B"/>
+          <text x="28" y="125" fill="#D97706" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">Porte Vitrée</text>
+        </g>
+        <!-- Disjoncteur Rideau Métallique -->
+        <g transform="translate(128, 0)">
+          <rect x="0" y="0" width="56" height="140" rx="6" fill="url(#breakerBody)" stroke="#F59E0B" stroke-width="2"/>
+          <text x="28" y="22" fill="#0F172A" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">C16</text>
+          <rect x="10" y="55" width="36" height="42" rx="4" fill="#334155"/>
+          <rect x="15" y="58" width="26" height="18" rx="2" fill="#F59E0B"/>
+          <text x="28" y="125" fill="#D97706" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">Rideau Métal</text>
+        </g>
+        <!-- Disjoncteur Climatisation & PAC -->
+        <g transform="translate(192, 0)">
+          <rect x="0" y="0" width="56" height="140" rx="6" fill="url(#breakerBody)" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="28" y="22" fill="#0F172A" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">C20</text>
+          <rect x="10" y="55" width="36" height="42" rx="4" fill="#334155"/>
+          <rect x="15" y="58" width="26" height="18" rx="2" fill="#10B981"/>
+          <text x="28" y="125" fill="#64748B" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">Climatisation</text>
+        </g>
+        <!-- Contacteur Jour/Nuit Chauffe-eau -->
+        <g transform="translate(256, 0)">
+          <rect x="0" y="0" width="70" height="140" rx="6" fill="url(#breakerBody)" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="35" y="22" fill="#0F172A" font-family="system-ui, sans-serif" font-size="9" font-weight="900" text-anchor="middle">CONTACTEUR</text>
+          <rect x="18" y="50" width="34" height="48" rx="4" fill="#0F172A"/>
+          <rect x="22" y="54" width="26" height="16" rx="2" fill="#38BDF8"/>
+          <text x="35" y="66" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">AUTO</text>
+          <text x="35" y="125" fill="#64748B" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">Chauffe-eau</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- ================= ROW 3: BORNIER DE TERRE & CÂBLAGE CERTIFIÉ ================= -->
+    <g transform="translate(40, 480)">
+      <rect x="0" y="30" width="720" height="60" rx="8" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+      <!-- Ground Busbar (Vert/Jaune) -->
+      <rect x="20" y="45" width="680" height="12" rx="4" fill="#84CC16"/>
+      <!-- Screw Terminals -->
+      <g fill="#E2E8F0">
+        <circle cx="50" cy="51" r="3"/>
+        <circle cx="90" cy="51" r="3"/>
+        <circle cx="130" cy="51" r="3"/>
+        <circle cx="170" cy="51" r="3"/>
+        <circle cx="210" cy="51" r="3"/>
+        <circle cx="250" cy="51" r="3"/>
+        <circle cx="290" cy="51" r="3"/>
+        <circle cx="330" cy="51" r="3"/>
+        <circle cx="370" cy="51" r="3"/>
+        <circle cx="410" cy="51" r="3"/>
+        <circle cx="450" cy="51" r="3"/>
+        <circle cx="490" cy="51" r="3"/>
+        <circle cx="530" cy="51" r="3"/>
+        <circle cx="570" cy="51" r="3"/>
+        <circle cx="610" cy="51" r="3"/>
+        <circle cx="650" cy="51" r="3"/>
+      </g>
+      <!-- Earth Symbol -->
+      <g transform="translate(35, 75)" stroke="#84CC16" stroke-width="2" fill="none">
+        <line x1="0" y1="0" x2="16" y2="0" />
+        <line x1="3" y1="4" x2="13" y2="4" />
+        <line x1="6" y1="8" x2="10" y2="8" />
+        <line x1="8" y1="-8" x2="8" y2="0" />
+      </g>
+      <text x="60" y="78" fill="#A3E635" font-family="system-ui, sans-serif" font-size="11" font-weight="900" letter-spacing="1">BARRETTE DE TERRE PRINCIPALE CONFORME &lt; 100 OHMS</text>
+    </g>
+
+    <!-- Certification Sticker on panel -->
+    <g transform="translate(520, 580)">
+      <rect x="0" y="0" width="240" height="85" rx="10" fill="#F8FAFC" stroke="#10B981" stroke-width="2.5"/>
+      <rect x="8" y="8" width="224" height="24" rx="6" fill="#10B981"/>
+      <text x="120" y="25" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle" letter-spacing="1">CONFORME NF C 15-100</text>
+      <text x="120" y="50" fill="#0F172A" font-family="system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle">RÉNOVATION VALIDÉE</text>
+      <text x="120" y="68" fill="#059669" font-family="system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">DALI ÉLECTRICITÉ • 07 49 13 71 01</text>
+    </g>
+  </g>
+
+  <!-- Left Side Atmospheric Electrician Badges Overlay -->
+  <g transform="translate(80, 260)">
+    <!-- Artisan Badge -->
+    <rect x="0" y="0" width="340" height="74" rx="20" fill="#0F172A" opacity="0.9" stroke="#F59E0B" stroke-width="2"/>
+    <circle cx="36" cy="37" r="20" fill="#F59E0B"/>
+    <path d="M36 24 L30 38 L36 38 L34 50 L44 34 L38 34 Z" fill="#0F172A"/>
+    <text x="70" y="32" fill="#FBBF24" font-family="system-ui, sans-serif" font-size="12" font-weight="900" letter-spacing="1">CHANTIER RÉALISÉ</text>
+    <text x="70" y="52" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="14" font-weight="800">Rénovation Tableau Électrique</text>
+
+    <!-- Guarantee Badge -->
+    <g transform="translate(0, 100)">
+      <rect x="0" y="0" width="340" height="74" rx="20" fill="#0F172A" opacity="0.9" stroke="#38BDF8" stroke-width="2"/>
+      <circle cx="36" cy="37" r="20" fill="#38BDF8"/>
+      <!-- Shield checkmark -->
+      <path d="M28 36 L34 42 L45 30" stroke="#0F172A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <text x="70" y="32" fill="#38BDF8" font-family="system-ui, sans-serif" font-size="12" font-weight="900" letter-spacing="1">GARANTIE DÉCENNALE</text>
+      <text x="70" y="52" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="14" font-weight="800">Cagnes-sur-Mer &amp; Côte d'Azur</text>
+    </g>
+  </g>
+</svg>

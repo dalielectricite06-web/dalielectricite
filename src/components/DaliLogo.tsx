@@ -95,7 +95,7 @@ export const DaliLogo: React.FC<DaliLogoProps> = ({
         </div>
         {showSubtitle && (
           <span className={`font-semibold uppercase ${subtitleColor} ${subSizes[size]} mt-0.5`}>
-            SOLUTIONS &amp; INSTALLATIONS ÉLECTRIQUES
+            ÉLECTRICITÉ GÉNÉRALE &amp; AUTOMATISMES
           </span>
         )}
       </div>
